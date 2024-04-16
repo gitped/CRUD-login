@@ -24,14 +24,27 @@ export function TaskProvider({children}) {
     }
   };
 
-  // const getTask = async (id) => {};
+  const getTask = async (id) => {
+    try {
+      const res = await getTaskRequest(id);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const createTask = async (task) => {
     const res = await createTaskRequest(task);
     console.log(res);
   };
 
-  // const updateTask = async (task) => {};
+  const updateTask = async (id, task) => {
+    try {
+      await updateTaskRequest(id, task);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const deleteTask = async (id) => {
     try {
@@ -46,9 +59,9 @@ export function TaskProvider({children}) {
     <TaskContext.Provider value={{
       tasks,
       getTasks,
-      // getTask,
+      getTask,
       createTask,
-      // updateTask,
+      updateTask,
       deleteTask
     }}>
       {children}
